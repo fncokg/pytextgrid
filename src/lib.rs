@@ -12,8 +12,8 @@ mod pytextgrid {
         strict: bool,
         file_type: &str,
     ) -> PyResult<(
-        Bound<'py, PyArray1<f32>>,
-        Bound<'py, PyArray1<f32>>,
+        Bound<'py, PyArray1<f64>>,
+        Bound<'py, PyArray1<f64>>,
         Vec<String>,
         Vec<String>,
         Bound<'py, PyArray1<bool>>,
@@ -43,8 +43,8 @@ mod pytextgrid {
         strict: bool,
         file_type: &str,
     ) -> PyResult<(
-        Bound<'py, PyArray1<f32>>,
-        Bound<'py, PyArray1<f32>>,
+        Bound<'py, PyArray1<f64>>,
+        Bound<'py, PyArray1<f64>>,
         Vec<String>,
         Vec<String>,
         Bound<'py, PyArray1<bool>>,
@@ -81,7 +81,7 @@ mod pytextgrid {
         file: &str,
         strict: bool,
         file_type: &str,
-    ) -> PyResult<(f32, f32, Vec<(String, bool, Vec<(f32, f32, String)>)>)> {
+    ) -> PyResult<(f64, f64, Vec<(String, bool, Vec<(f64, f64, String)>)>)> {
         let tgt_result = read_from_file(file, strict, file_type);
         match tgt_result {
             Ok(tgt) => Ok(tgt.to_data()),
@@ -96,15 +96,15 @@ mod pytextgrid {
         files: Vec<String>,
         strict: bool,
         file_type: &str,
-    ) -> PyResult<Vec<(f32, f32, Vec<(String, bool, Vec<(f32, f32, String)>)>)>> {
+    ) -> PyResult<Vec<(f64, f64, Vec<(String, bool, Vec<(f64, f64, String)>)>)>> {
         let vec_data = files_to_data(&files, strict, file_type);
         Ok(vec_data)
     }
     #[pyfunction]
     pub fn data2textgrid(
-        data: Vec<(String, bool, Vec<(f32, f32, String)>)>,
-        tmin: Option<f32>,
-        tmax: Option<f32>,
+        data: Vec<(String, bool, Vec<(f64, f64, String)>)>,
+        tmin: Option<f64>,
+        tmax: Option<f64>,
         output_file: &str,
         file_type: &str,
     ) -> PyResult<()> {
@@ -122,13 +122,13 @@ mod pytextgrid {
     }
     #[pyfunction]
     pub fn vectors2textgrid(
-        tmins: Vec<f32>,
-        tmaxs: Vec<f32>,
+        tmins: Vec<f64>,
+        tmaxs: Vec<f64>,
         labels: Vec<String>,
         tier_names: Vec<String>,
         is_intervals: Vec<bool>,
-        tmin: Option<f32>,
-        tmax: Option<f32>,
+        tmin: Option<f64>,
+        tmax: Option<f64>,
         output_file: &str,
         file_type: &str,
     ) -> PyResult<()> {
