@@ -3,4 +3,3 @@ site
 target
 *.pyd
 __pycache__
-benchmarks/
