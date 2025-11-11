@@ -1,18 +1,29 @@
+//! Parser for short-format TextGrid files.
+//!
+//! This module provides functionality to parse TextGrid files in the short format,
+//! which uses a more compact representation without explicit key-value pairs.
+
 use crate::textgrid::*;
+use crate::utils::{parse_float, parse_str, parse_uint};
 use std::io::Result;
 
-fn parse_float(s: &str) -> f64 {
-    s.parse().unwrap_or(0.0)
-}
-
-fn parse_str(s: &str) -> String {
-    s.trim_matches('"').to_string()
-}
-
-fn parse_uint(s: &str) -> usize {
-    s.parse().unwrap_or(0)
-}
-
+/// Parses a single tier from the short format lines.
+///
+/// # Arguments
+///
+/// * `lines` - A slice of all lines in the file
+/// * `start_index` - The index where the tier data starts
+///
+/// # Returns
+///
+/// Returns a tuple containing:
+/// * The parsed `Tier`
+/// * The index of the next line after this tier's data
+///
+/// # Panics
+///
+/// Panics if an unknown tier class is encountered.
+#[inline]
 fn parse_tier(lines: &[&str], start_index: usize) -> (Tier, usize) {
     let mut tier = Tier::new();
     tier.interval_tier = match lines[start_index].trim_matches('"') {
@@ -50,7 +61,34 @@ fn parse_tier(lines: &[&str], start_index: usize) -> (Tier, usize) {
     (tier, cursor)
 }
 
-pub fn read_from_file_short(fname: &str, strict: bool) -> Result<TextGrid> {
+/// Reads and parses a TextGrid file in short format.
+///
+/// # Arguments
+///
+/// * `fname` - The path to the TextGrid file
+/// * `strict` - Whether to perform strict validation on the parsed data
+///
+/// # Returns
+///
+/// Returns a `Result` containing the parsed `TextGrid` on success, or an error on failure.
+///
+/// # Errors
+///
+/// Returns an error if:
+/// * The file cannot be read
+/// * The file content is invalid
+/// * Validation fails (when `strict` is true)
+///
+/// # Examples
+///
+/// ```no_run
+/// use textgrid::read_from_file;
+///
+/// // Read using explicit "short" format specifier
+/// let tg = read_from_file("example.TextGrid", false, "short").unwrap();
+/// println!("Loaded TextGrid with {} tiers", tg.tiers.len());
+/// ```
+pub(crate) fn read_from_file_short(fname: &str, strict: bool) -> Result<TextGrid> {
     let content = std::fs::read_to_string(fname).unwrap();
     let mut tg = TextGrid::new();
     tg.name = std::path::Path::new(fname)

@@ -23,26 +23,26 @@ mod tests {
 
     #[test]
     fn test_read_write_long() {
-        let tgt = read_from_file_long(LONG_FILE, true).unwrap();
+        let tgt = read_from_file(LONG_FILE, true, "long").unwrap();
         tgt.save_textgrid("tmp_long.TextGrid", true);
         let org_content = fs::read_to_string(LONG_FILE).unwrap();
         let new_content = fs::read_to_string("tmp_long.TextGrid").unwrap();
         assert_eq!(org_content, new_content);
 
-        let new_tgt = read_from_file_long("tmp_long.TextGrid", true).unwrap();
+        let new_tgt = read_from_file("tmp_long.TextGrid", true, "long").unwrap();
         assert_eq!(tgt.to_data(), new_tgt.to_data());
         fs::remove_file("tmp_long.TextGrid").unwrap();
     }
     #[test]
     fn test_read_write_short() {
-        let tgt = read_from_file_short(SHORT_FILE, true).unwrap();
+        let tgt = read_from_file(SHORT_FILE, true, "short").unwrap();
         tgt.save_textgrid("tmp_short.TextGrid", false);
 
         let org_content = fs::read_to_string(SHORT_FILE).unwrap();
         let new_content = fs::read_to_string("tmp_short.TextGrid").unwrap();
         assert_eq!(org_content, new_content);
 
-        let new_tgt = read_from_file_short("tmp_short.TextGrid", true).unwrap();
+        let new_tgt = read_from_file("tmp_short.TextGrid", true, "short").unwrap();
         assert_eq!(tgt.to_data(), new_tgt.to_data());
         fs::remove_file("tmp_short.TextGrid").unwrap();
     }

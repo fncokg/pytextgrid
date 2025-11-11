@@ -1,25 +1,51 @@
+//! Parser for long-format TextGrid files.
+//!
+//! This module provides functionality to parse TextGrid files in the long format,
+//! which uses explicit key-value pairs with equals signs.
+
 use crate::textgrid::*;
+use crate::utils::{parse_float, parse_str, parse_uint};
 use std::io::Result;
 
+/// Represents the current parsing state when reading a long-format TextGrid file.
 enum State {
+    /// Parsing the TextGrid header
     Header,
+    /// Parsing an individual item (interval or point)
     Item,
+    /// Parsing a tier definition
     Tier,
+    /// Parsing the tier list declaration
     TierList,
 }
 
-fn parse_float(s: &str) -> f64 {
-    s.parse().unwrap_or(0.0)
+/// Parses a key-value pair from a line.
+///
+/// # Arguments
+///
+/// * `line` - The line to parse
+///
+/// # Returns
+///
+/// Returns `Some((key, value))` if the line contains a key-value pair separated by '=',
+/// otherwise returns `None`.
+#[inline]
+fn parse_kv(line: &str) -> Option<(&str, &str)> {
+    let parts: Vec<&str> = line.splitn(2, '=').collect();
+    if parts.len() == 2 {
+        Some((parts[0].trim(), parts[1].trim()))
+    } else {
+        None
+    }
 }
 
-fn parse_str(s: &str) -> String {
-    s.trim_matches('"').to_string()
-}
-
-fn parse_uint(s: &str) -> usize {
-    s.parse().unwrap_or(0)
-}
-
+/// Parses a key-value pair and updates an Item accordingly.
+///
+/// # Arguments
+///
+/// * `line` - The line to parse
+/// * `item` - The item to update with parsed values
+#[inline]
 fn parse_item_kv(line: &str, item: &mut Item) {
     if let Some((key, value)) = parse_kv(line) {
         match key {
@@ -36,6 +62,13 @@ fn parse_item_kv(line: &str, item: &mut Item) {
     }
 }
 
+/// Parses a key-value pair and updates a Tier accordingly.
+///
+/// # Arguments
+///
+/// * `line` - The line to parse
+/// * `tier` - The tier to update with parsed values
+#[inline]
 fn parse_tier_kv(line: &str, tier: &mut Tier) {
     if let Some((key, value)) = parse_kv(line) {
         match key {
@@ -56,6 +89,13 @@ fn parse_tier_kv(line: &str, tier: &mut Tier) {
     }
 }
 
+/// Parses a key-value pair and updates a TextGrid accordingly.
+///
+/// # Arguments
+///
+/// * `line` - The line to parse
+/// * `tg` - The TextGrid to update with parsed values
+#[inline]
 fn parse_tg_kv(line: &str, tg: &mut TextGrid) {
     if let Some((key, value)) = parse_kv(line) {
         match key {
@@ -67,16 +107,34 @@ fn parse_tg_kv(line: &str, tg: &mut TextGrid) {
     }
 }
 
-fn parse_kv(line: &str) -> Option<(&str, &str)> {
-    let parts: Vec<&str> = line.splitn(2, '=').collect();
-    if parts.len() == 2 {
-        Some((parts[0].trim(), parts[1].trim()))
-    } else {
-        None
-    }
-}
-
-pub fn read_from_file_long(fname: &str, strict: bool) -> Result<TextGrid> {
+/// Reads and parses a TextGrid file in long format.
+///
+/// # Arguments
+///
+/// * `fname` - The path to the TextGrid file
+/// * `strict` - Whether to perform strict validation on the parsed data
+///
+/// # Returns
+///
+/// Returns a `Result` containing the parsed `TextGrid` on success, or an error on failure.
+///
+/// # Errors
+///
+/// Returns an error if:
+/// * The file cannot be read
+/// * The file content is invalid
+/// * Validation fails (when `strict` is true)
+///
+/// # Examples
+///
+/// ```no_run
+/// use textgrid::read_from_file;
+///
+/// // Read using explicit "long" format specifier
+/// let tg = read_from_file("example.TextGrid", true, "long").unwrap();
+/// println!("Loaded TextGrid with {} tiers", tg.tiers.len());
+/// ```
+pub(crate) fn read_from_file_long(fname: &str, strict: bool) -> Result<TextGrid> {
     let content = std::fs::read_to_string(fname).unwrap();
     let mut tg = TextGrid::new();
     tg.name = std::path::Path::new(fname)
