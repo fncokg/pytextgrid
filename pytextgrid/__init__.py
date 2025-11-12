@@ -30,6 +30,9 @@ if TYPE_CHECKING:  # pragma: no cover - for type checkers only
     )
 
 
+__version__ = "1.0.0"
+
+
 def _file_name(
     file: Union[str, list[str], Path, list[Path]], file_name_func: Optional[Any] = None
 ) -> Union[str, list[str]]:

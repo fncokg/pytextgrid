@@ -5,19 +5,37 @@ build-backend = "maturin"
 [project]
 name = "pytextgrid"
 requires-python = ">=3.8"
+description = "Rust-powered TextGrid parsing for Python with high performance APIs"
+readme = "README.md"
+authors = [{ name = "Chao Kong", email = "kongchao1998@gmail.com" }]
+keywords = ["praat", "textgrid", "phonetics", "linguistics", "speech"]
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing",
 ]
 dynamic = ["version"]
+dependencies = ["numpy"]
+
+[project.urls]
+Homepage = "https://github.com/fncokg/pytextgrid"
+Documentation = "https://fncokg.github.io/pytextgrid/"
+Repository = "https://github.com/fncokg/pytextgrid"
+Issues = "https://github.com/fncokg/pytextgrid/issues"
 
 [project.optional-dependencies]
+pandas = ["pandas"]
+polars = ["polars"]
+dataframes = ["pandas", "polars"]
+dev = ["pytest>=7.0", "pandas", "polars"]
 docs = [
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
     "mkdocstrings[python]>=0.26",
     "pymdown-extensions>=10.0",
 ]
+benchmark = ["pandas", "tqdm>=4.0", "textgrid", "praat-parselmouth"]
 [tool.maturin]
 features = ["pyo3/extension-module"]
