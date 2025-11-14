@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from pytextgrid import df_to_textgrid, textgrid_to_df
-from pytextgrid.textgrid import TextGrid
+from gridio import df_to_textgrid, textgrid_to_df
+from gridio.textgrid import TextGrid
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 LONG_TG = DATA_DIR / "long_format.TextGrid"

@@ -1,5 +1,5 @@
 from pathlib import Path
-from pytextgrid import data_to_textgrid
+from gridio import data_to_textgrid
 
 
 def generate_items(

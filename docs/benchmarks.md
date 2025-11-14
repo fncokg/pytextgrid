@@ -2,7 +2,7 @@
 
 This document presents performance benchmarks comparing three popular Python libraries for parsing Praat TextGrid files:
 
-1. **pytextgrid** (this project, backed by Rust bindings)
+1. **gridio** (this project, backed by Rust bindings)
 2. **textgrid** (pure Python implementation)
 3. **parselmouth** (Python bridge to Praat''s C++ core)
 
@@ -17,19 +17,19 @@ These tasks represent typical use cases in phonetic research, where researchers 
 
 ## Implementation Details
 
-### pytextgrid
+### gridio
 
 ```python
-import pytextgrid
+import gridio
 
 # Task 1: construct - Parse and create TextGrid objects
-textgrids = pytextgrid.TextGrid.from_file(file_list)
+textgrids = gridio.TextGrid.from_file(file_list)
 
 # Task 2: to_df - Parse and convert to DataFrame
-df = pytextgrid.textgrid_to_df(file_list, strict=False, file_type="long")
+df = gridio.textgrid_to_df(file_list, strict=False, file_type="long")
 ```
 
-The `pytextgrid.TextGrid.from_file()` method accepts either a single file path or a list of paths, enabling efficient batch processing with Rust-powered parallelization.
+The `gridio.TextGrid.from_file()` method accepts either a single file path or a list of paths, enabling efficient batch processing with Rust-powered parallelization.
 
 ### textgrid (pure Python)
 
@@ -117,7 +117,7 @@ Benchmarks were conducted on a laptop with the following specifications:
 - **CPU**: 12th Gen Intel® Core™ i5-12500H
 - **RAM**: 16 GB
 - **Python**: 3.12.7 (64-bit)
-- **pytextgrid**: Latest version (Rust-backed)
+- **gridio**: Latest version (Rust-backed)
 - **textgrid**: 1.6.1
 - **parselmouth**: 0.4.5
 - **pandas**: 2.2.3
@@ -132,10 +132,10 @@ The table below shows mean execution time across 5 runs, with standard deviation
 
 | Package     | Task      | Mean (s) | Std Dev (s) | Speedup |
 | ----------- | --------- | -------- | ----------- | ------- |
-| pytextgrid  | construct | 0.984    | 0.042       | 1.0x    |
+| gridio      | construct | 0.984    | 0.042       | 1.0x    |
 | textgrid    | construct | 8.555    | 0.031       | 8.7x    |
 | parselmouth | construct | 206.68   | 3.39        | 210.0x  |
-| pytextgrid  | to_df     | 1.264    | 0.014       | 1.0x    |
+| gridio      | to_df     | 1.264    | 0.014       | 1.0x    |
 | textgrid    | to_df     | 10.143   | 0.945       | 8.0x    |
 | parselmouth | to_df     | 220.11   | 5.23        | 174.1x  |
 
@@ -147,7 +147,7 @@ The table below shows mean execution time across 5 runs, with standard deviation
 
 ### Key Findings
 
-`pytextgrid` dominates both tasks. It's ~8x faster than `textgrid` and over 170x faster than `parselmouth`. You should prefer `pytextgrid` for large-scale TextGrid processing due to its superior performance.
+`gridio` dominates both tasks. It's ~8x faster than `textgrid` and over 170x faster than `parselmouth`. You should prefer `gridio` for large-scale TextGrid processing due to its superior performance.
 
 ## Running the Benchmark
 

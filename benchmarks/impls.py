@@ -2,13 +2,13 @@ from functools import partial
 
 import parselmouth
 import textgrid as textgrid_pkg
-import pytextgrid as pytextgrid_pkg
+import gridio as gridio_pkg
 
 import pandas as pd
 
 
-def pytextgrid_construct(fnames):
-    return pytextgrid_pkg.TextGrid.from_file(fnames)
+def gridio_construct(fnames):
+    return gridio_pkg.TextGrid.from_file(fnames)
 
 
 def textgrid_construct(fnames):
@@ -57,8 +57,8 @@ def parselmouth_construct(fnames):
     return data_list
 
 
-def pytextgrid_to_df(fnames):
-    return pytextgrid_pkg.textgrid_to_df(fnames, strict=False, file_type="long")
+def gridio_to_df(fnames):
+    return gridio_pkg.textgrid_to_df(fnames, strict=False, file_type="long")
 
 
 def textgrid_to_df(fnames):

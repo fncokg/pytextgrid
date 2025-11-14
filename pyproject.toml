@@ -3,7 +3,7 @@ requires = ["maturin>=1.9,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "pytextgrid"
+name = "gridio"
 requires-python = ">=3.8"
 description = "Rust-powered TextGrid parsing for Python with high performance APIs"
 readme = "README.md"
@@ -20,10 +20,10 @@ dynamic = ["version"]
 dependencies = ["numpy"]
 
 [project.urls]
-Homepage = "https://github.com/fncokg/pytextgrid"
-Documentation = "https://fncokg.github.io/pytextgrid/"
-Repository = "https://github.com/fncokg/pytextgrid"
-Issues = "https://github.com/fncokg/pytextgrid/issues"
+Homepage = "https://github.com/fncokg/gridio"
+Documentation = "https://fncokg.github.io/gridio/"
+Repository = "https://github.com/fncokg/gridio"
+Issues = "https://github.com/fncokg/gridio/issues"
 
 [project.optional-dependencies]
 pandas = ["pandas"]

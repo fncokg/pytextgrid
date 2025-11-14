@@ -2,7 +2,7 @@
 
 ## Functional Helpers
 
-::: pytextgrid
+::: gridio
     handler: python
     options:
       show_root_heading: true
@@ -16,7 +16,7 @@
 
 ## Object-Oriented API
 
-::: pytextgrid.textgrid
+::: gridio.textgrid
     handler: python
     options:
       show_root_heading: true

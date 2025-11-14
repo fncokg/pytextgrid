@@ -1,13 +1,13 @@
 """High-level helpers for converting Praat TextGrid files.
 
 These wrappers expose the Rust-backed parsing and serialization
-implemented in :mod:`pytextgrid.pytextgrid` and provide convenient
+implemented in :mod:`gridio.gridio` and provide convenient
 Pythonic utilities for turning TextGrid content into tabular or nested
 data structures and writing them back to disk.
 """
 
 # Here we provide some wrapper functions for Rust implementations
-from .pytextgrid import (
+from .gridio import (
     textgrid2vectors as rc_tg2vecs,
     textgrids2vectors as rc_tgs2vecs,
     textgrid2data as rc_tg2data,
@@ -30,7 +30,7 @@ if TYPE_CHECKING:  # pragma: no cover - for type checkers only
     )
 
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 def _file_name(

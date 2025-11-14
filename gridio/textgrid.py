@@ -1,5 +1,5 @@
 # This is an OOP wrapper
-from pytextgrid import textgrid_to_data, data_to_textgrid
+from gridio import textgrid_to_data, data_to_textgrid
 from typing import Optional, Union, Iterable, Iterator, Tuple, List, Dict, Any, Literal
 from pathlib import Path
 

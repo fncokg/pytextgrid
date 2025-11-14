@@ -13,9 +13,9 @@ from benchmarks.impls import *
 
 
 METHODS = {
-    "pytextgrid": {
-        "construct": pytextgrid_construct,
-        "to_df": pytextgrid_to_df,
+    "gridio": {
+        "construct": gridio_construct,
+        "to_df": gridio_to_df,
     },
     "textgrid": {
         "construct": textgrid_construct,
@@ -32,7 +32,7 @@ def run_benchmarks(
     files: list[Path],
     repeats: int,
     tasks: list[str] = ["construct", "to_df"],
-    packages: list[str] = ["pytextgrid", "textgrid", "parselmouth"],
+    packages: list[str] = ["gridio", "textgrid", "parselmouth"],
 ) -> pd.DataFrame:
     records = []
     for task, package in tqdm(list(product(tasks, packages))):
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             files,
             repeats=5,
             tasks=["construct", "to_df"],
-            packages=["pytextgrid", "textgrid", "parselmouth"],
+            packages=["gridio", "textgrid", "parselmouth"],
         )
         results.to_csv("benchmarks/results/all.csv", index=False)
     finally:

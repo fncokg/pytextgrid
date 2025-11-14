@@ -5,7 +5,7 @@ library(tidyverse)
 ```{r}
 data <- read_csv("benchmarks/results/bench_result.csv") %>%
     mutate(
-        package = factor(package, levels = c("pytextgrid", "textgrid", "parselmouth")),
+        package = factor(package, levels = c("gridio", "textgrid", "parselmouth")),
         task = ifelse(task == "construct", "Task: Read TextGrid", "Task: Read TextGrid and Convert to DataFrame"),
     ) %>%
     group_by(task, package) %>%

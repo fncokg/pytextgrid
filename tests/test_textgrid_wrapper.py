@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from pytextgrid.textgrid import (
+from gridio.textgrid import (
     TextGrid,
     IntervalTier,
     PointTier,

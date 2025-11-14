@@ -4,7 +4,7 @@
 /// and converting Praat TextGrid files using Rust bindings. It supports both
 /// long and short TextGrid formats and offers efficient batch processing capabilities.
 #[pyo3::pymodule]
-mod pytextgrid {
+mod gridio {
     use numpy::{IntoPyArray, PyArray1};
     use pyo3::prelude::*;
 
