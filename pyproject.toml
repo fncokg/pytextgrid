@@ -11,8 +11,6 @@ authors = [{ name = "Chao Kong", email = "kongchao1998@gmail.com" }]
 keywords = ["praat", "textgrid", "phonetics", "linguistics", "speech"]
 classifiers = [
     "Programming Language :: Rust",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Scientific/Engineering",
     "Topic :: Text Processing",
 ]
@@ -25,17 +23,5 @@ Documentation = "https://fncokg.github.io/gridio/"
 Repository = "https://github.com/fncokg/gridio"
 Issues = "https://github.com/fncokg/gridio/issues"
 
-[project.optional-dependencies]
-pandas = ["pandas"]
-polars = ["polars"]
-dataframes = ["pandas", "polars"]
-dev = ["pytest>=7.0", "pandas", "polars"]
-docs = [
-    "mkdocs>=1.6",
-    "mkdocs-material>=9.5",
-    "mkdocstrings[python]>=0.26",
-    "pymdown-extensions>=10.0",
-]
-benchmark = ["pandas", "tqdm>=4.0", "textgrid", "praat-parselmouth"]
 [tool.maturin]
 features = ["pyo3/extension-module"]
