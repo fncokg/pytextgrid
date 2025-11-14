@@ -54,12 +54,17 @@ print(first_tier[0], first_tier[2][:2])
 data_to_textgrid(data, "copy.TextGrid")
 ```
 
-
 ## Install
+
+You can install `gridio` via pip:
 
 ```bash
 pip install gridio
-# or from source
+```
+
+Or if you want to build from source, make sure you have Rust and maturin installed, then run:
+
+```bash
 maturin develop
 ```
 

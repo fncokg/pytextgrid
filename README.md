@@ -57,11 +57,21 @@ data_to_textgrid(data, "copy.TextGrid")
 
 ## Install
 
+You can install `gridio` via pip:
+
 ```bash
 pip install gridio
-# or from source
+```
+
+Or if you want to build from source, make sure you have Rust and maturin installed, then run:
+
+```bash
 maturin develop
 ```
+
+## Documentation
+
+Comprehensive documentation is available at [https://fncokg.github.io/gridio/](https://fncokg.github.io/gridio/).
 
 ## Benchmarks
 
